@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <rect width="1024" height="1024" fill="#1F1E1C"/>
+
+  <circle cx="280" cy="316" r="98" fill="#F2A03D"/>
+  <circle cx="744" cy="316" r="98" fill="#E07B29"/>
+  <!-- the inner ear: a dark-orange crescent, not a cream disc (the photograph's own ear) -->
+  <g fill="none" stroke="#C05020" stroke-width="26" stroke-linecap="round">
+    <path d="M240 322A40 40 0 0 1 292 278"/>
+    <path d="M784 322A40 40 0 0 0 732 278"/>
+  </g>
+
+  <path d="M512 210A350 350 0 0 0 512 910Z" fill="#F2A03D"/>
+  <path d="M512 210A350 350 0 0 1 512 910Z" fill="#E07B29"/>
+
+  <g fill="none" stroke="#B04E14" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M438 346L512 405 586 346" stroke-width="34"/>
+    <!-- TWO stripes a cheek, as the photograph has them -->
+    <g stroke-width="24">
+      <path d="M258 588Q299 599 340 608"/>
+      <path d="M264 661Q294 673 326 679"/>
+      <path d="M766 588Q725 599 684 608"/>
+      <path d="M760 661Q730 673 698 679"/>
+    </g>
+  </g>
+
+  <g fill="#2A1A12">
+    <circle cx="400" cy="546" r="28"/>
+    <circle cx="624" cy="546" r="28"/>
+  </g>
+
+  <g fill="#FAF3E3">
+    <circle cx="452" cy="704" r="79"/>
+    <circle cx="572" cy="704" r="79"/>
+  </g>
+
+  <path d="M483 660Q512 650 541 660Q527 681 518 691Q512 697 506 691Q497 681 483 660Z" fill="#2A1A12"/>
+
+  <g fill="none" stroke="#2A1A12" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M512 689V711"/>
+    <path d="M475 720Q496 739 512 711Q528 739 549 720"/>
+  </g>
+</svg>

@@ -1,0 +1,98 @@
+name: TigerDSH
+options:
+  bundleIdPrefix: com.tigerwho
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: minimal
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  TigerDSH:
+    type: application
+    platform: iOS
+    sources:
+      - TigerDSH
+      - Shared
+    dependencies:
+      - target: TigerDSHWidget
+        embed: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.tigerwho.dshphone
+        # The app's copy of the shared approval intent is the one that runs (a LiveActivityIntent runs in the app's
+        # process); the widget compiles the same type so its buttons can name it.
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) TIGERDSH_APP"
+        INFOPLIST_FILE: TigerDSH/Resources/Info.plist
+        # aps-environment: the Live Activity's push token (the Mac updates the island while the app is closed).
+        CODE_SIGN_ENTITLEMENTS: TigerDSH/Resources/TigerDSH.entitlements
+        # A new name, not just new pictures: phones kept showing the old cub on notification banners (2026-10-15).
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIconOrca
+        # The app's one accent is the slate in AccentColor.colorset. Without this setting the asset is never read
+        # and every native control — links, pickers, the tint — falls back to the system blue.
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: NO
+  TigerDSHWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - TigerDSHWidget
+      - Shared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.tigerwho.dshphone.widget
+        INFOPLIST_FILE: TigerDSHWidget/Info.plist
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: NO
+        SKIP_INSTALL: YES
+  TigerDSHUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - TigerDSHUITests
+    dependencies:
+      - target: TigerDSH
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.tigerwho.dshphone.uitests
+        TEST_TARGET_NAME: TigerDSH
+        GENERATE_INFOPLIST_FILE: YES
+  # The model's own paths, tested in-process: a UI test cannot see the order a batch of pages merges in or the page
+  # a walk accepts (R8). Hosted in the app, so `@testable import TigerDSH` reaches the internal paging entry points.
+  #
+  # Its own scheme, and Debug: `@testable` needs the app compiled with testability, which Release is not — and the
+  # app's own scheme is the one the Release smoke build runs, so the unit tests must not be part of it.
+  TigerDSHUnitTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - TigerDSHUnitTests
+    dependencies:
+      - target: TigerDSH
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.tigerwho.dshphone.unittests
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  TigerDSH:
+    build:
+      targets:
+        TigerDSH: all
+    test:
+      targets:
+        - TigerDSHUITests
+  TigerDSHUnit:
+    build:
+      targets:
+        TigerDSH: all
+        TigerDSHUnitTests: [test]
+    test:
+      config: Debug
+      targets:
+        - TigerDSHUnitTests
